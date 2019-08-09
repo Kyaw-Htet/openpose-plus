@@ -24,6 +24,7 @@ DEFINE_int32(buffer_size, 4, "Stream buffer size.");
 DEFINE_int32(gauss_kernel_size, 17, "Gauss kernel size for smooth operation.");
 DEFINE_bool(use_f16, false, "Use float16.");
 DEFINE_bool(flip_rgb, true, "Flip RGB.");
+bool started = false;
 
 struct camera_t {
     const int fps;
@@ -49,7 +50,7 @@ struct camera_t {
             printf("#%d :: %d x %d\n", i, frame.size().height,
                    frame.size().width);
             ch.put(frame);
-            cv::waitKey(delay);
+	    std::this_thread::sleep_for(std::chrono::milliseconds(delay));
         }
     }
 };
